@@ -36,7 +36,7 @@ jobs:
 
       - name: Git kernel
         run: |
-          git clone https://github.com/PixelExperience-Devices/kernel_xiaomi_cepheus -b eleven
+          git clone https://github.com/Gainss/kernel_xiaomi_cepheus -b eleven
 
       - name: Make kernel
         run: |
