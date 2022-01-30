@@ -40,7 +40,7 @@ jobs:
 
       - name: Make kernel
         run: |
-          cd $GITHUB_WORKSPACE/kernel_oneplus_msm8996 && bash ./arm64.sh
+          cd $GITHUB_WORKSPACE/kernel_xiaomi_cepheus && bash ./arm64.sh
 
       - name: Upload to Release‌‌...
         uses: ncipollo/release-action@v1.8.0
