@@ -23,16 +23,6 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Set up the environment
-        run:  sudo apt update &&  sudo apt-get install -y openssl ccache bc bash git-core gnupg build-essential zip curl make automake autogen autoconf autotools-dev libtool shtool python  m4 gcc libtool zlib1g-dev flex gcc-aarch64-linux-gnu libssl-dev
-
-      - name: Download Tool_arm64
-        run: |
-          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 -b lineage-18.1 $GITHUB_WORKSPACE/Tool/arm64
-
-      - name: Download Tool_arm
-        run: |
-          git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 -b lineage-18.1 $GITHUB_WORKSPACE/Tool/arm32
 
       - name: Git kernel
         run: |
@@ -40,7 +30,7 @@ jobs:
 
       - name: Make kernel
         run: |
-          cd $GITHUB_WORKSPACE/kernel_xiaomi_cepheus && bash ./arm64.sh
+          cd $GITHUB_WORKSPACE/kernel_xiaomi_cepheus && bash ./build.sh
 
       - name: Upload to Release‌‌...
         uses: ncipollo/release-action@v1.8.0
