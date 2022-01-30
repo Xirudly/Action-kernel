@@ -1,0 +1,50 @@
+name: Kernel_action
+
+
+on:
+
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+  workflow_dispatch:
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-20.04
+
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Set up the environment
+        run:  sudo apt update &&  sudo apt-get install -y openssl ccache bc bash git-core gnupg build-essential zip curl make automake autogen autoconf autotools-dev libtool shtool python  m4 gcc libtool zlib1g-dev flex gcc-aarch64-linux-gnu libssl-dev
+
+      - name: Download Tool_arm64
+        run: |
+          git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r32 $GITHUB_WORKSPACE/Tool/arm64
+
+      - name: Download Tool_arm
+        run: |
+          git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r32 $GITHUB_WORKSPACE/Tool/arm32
+
+      - name: Git kernel
+        run: |
+          git clone https://github.com/Gainss/android_kernel_oneplus_msm8996 -b arrow-11.0
+
+      - name: Make kernel
+        run: |
+          cd $GITHUB_WORKSPACE/android_kernel_oneplus_msm8996 && bash ./build.sh
+
+      - name: Upload to Release‌‌...
+        uses: ncipollo/release-action@v1.8.0
+        with:
+           files: $GITHUB_WORKSPACE/android_kernel_oneplus_msm899/out/arch/arm64/boot
+           name: Image.gz-dtb
+           tag_name: main
