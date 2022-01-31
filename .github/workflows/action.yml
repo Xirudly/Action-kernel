@@ -28,18 +28,21 @@ jobs:
           git clone --depth=1 https://gitlab.com/jjpprrrr/prelude-clang.git $CLANG_PATH
           sh -c "$(curl -sSL https://github.com/akhilnarang/scripts/raw/master/setup/android_build_env.sh/)"
 
-      - name: clean
-        run: |
-          rm -rf $KERNEL_PATH/out/ *.zip
-          make mrproper && git reset --hard HEAD
 
       - name: Git kernel
         run: |
           git clone https://github.com/Gainss/kernel_xiaomi_cepheus -b eleven kernel
+          
+
+      - name: clean
+        run: |
+          cd $GITHUB_WORKSPACE/kernel
+          rm -rf $KERNEL_PATH/out/ *.zip
+          make mrproper && git reset --hard HEAD
 
       - name: Make kernel
         run: |
-          cd $GITHUB_WORKSPACE/kernel && bash ./build.sh
+          bash ./build.sh
 
       - name: Upload to Release
         uses: ncipollo/release-action@v1
