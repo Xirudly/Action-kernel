@@ -23,21 +23,12 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: setup
-        run: |
-          git clone --depth=1 https://gitlab.com/jjpprrrr/prelude-clang.git $CLANG_PATH
-          sh -c "$(curl -sSL https://github.com/akhilnarang/scripts/raw/master/setup/android_build_env.sh/)"
-
 
       - name: Git kernel
         run: |
-          git clone https://github.com/Gainss/kernel_xiaomi_cepheus -b eleven kernel
+          git clone https://github.com/PixelExperience-Devices/kernel_xiaomi_cepheus -b eleven kernel
           
 
-      - name: clean
-        run: |
-          cd $GITHUB_WORKSPACE/kernel
-          make mrproper 
 
       - name: Make kernel
         run: |
