@@ -26,15 +26,14 @@ jobs:
 
       - name: Git kernel
         run: |
-          git clone https://github.com/Gainss/kernel_xiaomi_cepheus -b eleven
+          git clone https://github.com/Gainss/kernel_xiaomi_cepheus -b eleven -b kernel
 
       - name: Make kernel
         run: |
-          cd $GITHUB_WORKSPACE/kernel_xiaomi_cepheus && bash ./build.sh
+          cd $GITHUB_WORKSPACE/kernel && bash ./build.sh
 
-      - name: Upload to Release‌‌...
-        uses: ncipollo/release-action@v1.8.0
+      - name: Upload to Release
+        uses: ncipollo/release-action@v1
         with:
-           files: $GITHUB_WORKSPACE/android_kernel_oneplus_msm899/out/arch/arm64/boot
-           name: Image.gz-dtb
-           tag_name: main
+          bodyFile: "${{ github.workspace }}/kernel_xiaomi_cepheus/out/arch/arm64/boot/Image.gz-dtb"
+          token: ${{ secrets.GITHUB_TOKEN }}
