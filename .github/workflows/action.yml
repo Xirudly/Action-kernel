@@ -38,5 +38,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "kernel/out/arch/arm64/boot/Image.gz-dtb"
-          tag: "test"
+          tag: "test v1"
           token: ${{ secrets.GITHUB_TOKEN }}
