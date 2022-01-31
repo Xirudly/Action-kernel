@@ -37,12 +37,11 @@ jobs:
       - name: clean
         run: |
           cd $GITHUB_WORKSPACE/kernel
-          rm -rf $KERNEL_PATH/out/ *.zip
-          make mrproper && git reset --hard HEAD
+          make mrproper 
 
       - name: Make kernel
         run: |
-          bash ./build.sh
+          cd $GITHUB_WORKSPACE/kernel && bash ./build.sh
 
       - name: Upload to Release
         uses: ncipollo/release-action@v1
