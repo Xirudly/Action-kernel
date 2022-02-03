@@ -28,11 +28,13 @@ jobs:
         run: |
           git clone https://github.com/Gainss/kernel_xiaomi_cepheus -b eleven kernel
           
-
+      - name: Git kernel
+        run: |
+          sudo mv clang.sh $GITHUB_WORKSPACE/kernel
 
       - name: Make kernel
         run: |
-          cd $GITHUB_WORKSPACE/kernel && bash ./build.sh
+          cd $GITHUB_WORKSPACE/kernel && bash ./clang.sh
 
       - name: Upload to Release
         uses: ncipollo/release-action@v1
